@@ -28,7 +28,7 @@ https://shuhuidong56-source.github.io/staferla-bilingual-archive/S1.html
 
 ## Status
 
-- `S1` has a real manual Chinese/English translation through paragraph 475.
+- `S1` has a real manual Chinese/English translation through paragraph 531.
 - The homepage indexes 43 entries and 143 document links.
 - 26 translated document pages are still draft shells.
 - This project is not an official Staferla or Lacan publication.
