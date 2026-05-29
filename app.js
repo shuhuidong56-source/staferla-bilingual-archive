@@ -2,9 +2,10 @@ const translations = {
   zh: {
     navSeminars: "研讨班",
     navAnnexes: "附录文献",
+    navZizek: "齐泽克",
     eyebrow: "Jacques Lacan / Freud 双语研读资料",
     heroTitle: "拉康与弗洛伊德双语资料馆",
-    heroText: "一个面向中文读者的非官方研读网站：重整 Staferla 原站的拉康研讨班、弗洛伊德文集与附录文献，提供可搜索索引、中英界面和持续推进的中英译文。目前 S1 已人工翻译到第 734 段，其余文档保留原站链接与译文框架。",
+    heroText: "一个面向中文读者的非官方研读网站：重整 Staferla 原站的拉康研讨班、弗洛伊德文集、附录文献与齐泽克阅读入口，提供可搜索索引、中英界面和持续推进的中英译文。目前 S1 已人工翻译到第 734 段，其余文档保留原站链接与译文框架。",
     statSeminars: "研讨班",
     statDocs: "文档入口",
     statLangs: "界面语言",
@@ -22,30 +23,37 @@ const translations = {
     filterSeminar: "研讨班",
     filterFreud: "Freud",
     filterLacan: "Lacan",
+    filterZizek: "Žižek",
     seminarKicker: "Seminars I-XXVII",
     seminarTitle: "Lacan 研讨班",
     annexKicker: "Annex documents",
     annexTitle: "Freud 与 Lacan 附录文献",
-    footerText: "资料来源为 staferla.free.fr；本站是非官方学习索引与翻译整理项目，源文件链接保留原站地址。",
+    zizekKicker: "Žižek reading list",
+    zizekTitle: "齐泽克专题",
+    footerText: "资料来源为 staferla.free.fr 及公开出版社/书目信息；本站是非官方学习索引与翻译整理项目，源文件链接保留原站地址。",
     source: "原文标题",
     sourcePage: "源页面",
     noResults: "没有匹配结果。",
     word: "Word 文档",
     pdf: "PDF 文档",
     html: "HTML 文档",
+    publisher: "出版社页面",
     translationHtml: "中英译文",
     manualTranslation: "人工译文",
     draftTranslation: "草稿框架",
     paragraphUnit: "段",
     draftNote: "待翻译",
-    original: "原站"
+    original: "原站",
+    external: "外部",
+    rightsNote: "版权限制：本站不公开托管这份 PDF，只提供书目信息与合法阅读入口。"
   },
   en: {
     navSeminars: "Seminars",
     navAnnexes: "Annexes",
+    navZizek: "Žižek",
     eyebrow: "Jacques Lacan / Freud bilingual study archive",
     heroTitle: "A bilingual Lacan and Freud reading archive",
-    heroText: "An unofficial study site for Chinese and English readers: it reorganizes the Staferla archive into a searchable index for Lacan's seminars, Freud collections, and annex texts, with bilingual interface labels and ongoing Chinese-English translations. S1 has been manually translated through paragraph 734; the remaining documents keep source links and translation shells.",
+    heroText: "An unofficial study site for Chinese and English readers: it reorganizes the Staferla archive into a searchable index for Lacan's seminars, Freud collections, annex texts, and Žižek reading entries, with bilingual interface labels and ongoing Chinese-English translations. S1 has been manually translated through paragraph 734; the remaining documents keep source links and translation shells.",
     statSeminars: "seminars",
     statDocs: "document links",
     statLangs: "interface languages",
@@ -63,23 +71,29 @@ const translations = {
     filterSeminar: "Seminars",
     filterFreud: "Freud",
     filterLacan: "Lacan",
+    filterZizek: "Žižek",
     seminarKicker: "Seminars I-XXVII",
     seminarTitle: "Lacan Seminars",
     annexKicker: "Annex documents",
     annexTitle: "Freud and Lacan annex texts",
-    footerText: "Content is sourced from staferla.free.fr; this is an unofficial study index and translation project that preserves links to the original files.",
+    zizekKicker: "Žižek reading list",
+    zizekTitle: "Žižek",
+    footerText: "Content is sourced from staferla.free.fr and public publisher/bibliographic pages; this is an unofficial study index and translation project that preserves links to original sources.",
     source: "Original title",
     sourcePage: "Source page",
     noResults: "No matching results.",
     word: "Word document",
     pdf: "PDF document",
     html: "HTML document",
+    publisher: "Publisher page",
     translationHtml: "Chinese-English translation",
     manualTranslation: "Manual translation",
     draftTranslation: "Draft shell",
     paragraphUnit: "paragraphs",
     draftNote: "pending",
-    original: "Original"
+    original: "Original",
+    external: "External",
+    rightsNote: "Copyright note: this site does not publicly host the PDF; it lists bibliographic information and legal reading entry points."
   }
 };
 
@@ -175,12 +189,30 @@ const freudAnnexes = [
   ]
 }));
 
-const items = [...seminars, ...freudAnnexes, ...lacanAnnexes];
+const zizekTexts = [
+  {
+    id: "Z1",
+    kind: "zizek",
+    tag: "Žižek",
+    fr: "The Sublime Object of Ideology, Second Edition",
+    zh: "《意识形态的崇高客体》第二版",
+    en: "The Sublime Object of Ideology, Second Edition",
+    image: "",
+    page: "https://www.penguinrandomhouse.com/books/232593/the-sublime-object-of-ideology-by-slavoj-zizek/",
+    noteKey: "rightsNote",
+    docs: [
+      { type: "publisher", href: "https://www.penguinrandomhouse.com/books/232593/the-sublime-object-of-ideology-by-slavoj-zizek/" }
+    ]
+  }
+];
+
+const items = [...seminars, ...freudAnnexes, ...lacanAnnexes, ...zizekTexts];
 let language = "zh";
 let filter = "all";
 
 const seminarGrid = document.querySelector("#seminarGrid");
 const annexGrid = document.querySelector("#annexGrid");
+const zizekGrid = document.querySelector("#zizekGrid");
 const searchInput = document.querySelector("#searchInput");
 const langToggle = document.querySelector("#langToggle");
 const translatedDocs = window.TRANSLATED_DOCS || {};
@@ -213,26 +245,30 @@ function itemMatches(item, query) {
 function createCard(item) {
   const title = item[language];
   const altTitle = language === "zh" ? item.en : item.zh;
+  const media = item.image
+    ? `<img src="${item.image}" alt="${item.fr}" loading="lazy" />`
+    : `<div class="cover-placeholder" aria-hidden="true"><span>${item.tag}</span></div>`;
   const translatedDoc = translatedDocs?.[item.id];
   const statusBadge = translatedDoc
     ? `<p class="status ${translatedDoc.status === "manual" ? "is-manual" : "is-draft"}">${translationStatusLabel(translatedDoc)}</p>`
     : "";
   const docs = [
     translatedDoc ? `<a class="doc-link translated ${translatedDoc.status === "manual" ? "is-manual" : "is-draft"}" href="${translatedDoc.href}"><span>${translationStatusLabel(translatedDoc)}</span><span>HTML</span></a>` : "",
-    ...item.docs.map((doc) => `<a class="doc-link" href="${doc.href}" target="_blank" rel="noreferrer"><span>${docLabel(doc.type)}</span><span>${t("original")}</span></a>`),
-    `<a class="doc-link" href="${item.page}" target="_blank" rel="noreferrer"><span>${t("sourcePage")}</span><span>${t("original")}</span></a>`
+    ...item.docs.map((doc) => `<a class="doc-link" href="${doc.href}" target="_blank" rel="noreferrer"><span>${docLabel(doc.type)}</span><span>${item.kind === "zizek" ? t("external") : t("original")}</span></a>`),
+    `<a class="doc-link" href="${item.page}" target="_blank" rel="noreferrer"><span>${t("sourcePage")}</span><span>${item.kind === "zizek" ? t("external") : t("original")}</span></a>`
   ].join("");
 
   return `
     <article class="card" data-kind="${item.kind}">
       <div class="card-media">
-        <img src="${item.image}" alt="${item.fr}" loading="lazy" />
+        ${media}
         <span class="card-tag">${item.tag}</span>
       </div>
       <div class="card-body">
         <h3>${title}</h3>
         <p class="translation">${altTitle}</p>
         ${statusBadge}
+        ${item.noteKey ? `<p class="rights-note">${t(item.noteKey)}</p>` : ""}
         <p class="meta">${t("source")}: ${item.fr}</p>
         <div class="doc-list">${docs}</div>
       </div>
@@ -251,10 +287,12 @@ function render() {
   const query = searchInput.value.trim();
   const visible = items.filter((item) => (filter === "all" || item.kind === filter) && itemMatches(item, query));
   const visibleSeminars = visible.filter((item) => item.kind === "seminar");
-  const visibleAnnexes = visible.filter((item) => item.kind !== "seminar");
+  const visibleAnnexes = visible.filter((item) => item.kind !== "seminar" && item.kind !== "zizek");
+  const visibleZizek = visible.filter((item) => item.kind === "zizek");
 
   seminarGrid.innerHTML = visibleSeminars.length ? visibleSeminars.map(createCard).join("") : `<p class="empty">${t("noResults")}</p>`;
   annexGrid.innerHTML = visibleAnnexes.length ? visibleAnnexes.map(createCard).join("") : `<p class="empty">${t("noResults")}</p>`;
+  zizekGrid.innerHTML = visibleZizek.length ? visibleZizek.map(createCard).join("") : `<p class="empty">${t("noResults")}</p>`;
 }
 
 function applyLanguage() {
