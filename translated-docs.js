@@ -12,7 +12,7 @@ window.TRANSLATED_DOCS = {
   "S1": {
     "href": "./S1.html",
     "status": "manual",
-    "paragraphs": 793
+    "paragraphs": 800
   },
   "S10": {
     "href": "./S10.html",
